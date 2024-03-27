@@ -22,6 +22,7 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<List<PostItemDTO>> index() {
+
         return new ResponseEntity<>(postService.get(), HttpStatus.OK);
     }
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -53,5 +54,13 @@ public class PostController {
         PostSearchResultDTO searchResult = postService.searchPost(name, categoryId,
                 description, page, size);
         return new ResponseEntity<>(searchResult, HttpStatus.OK);
+    }
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> delete(@PathVariable int postId) {
+        var success = postService.delete(postId);
+        if (!success) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

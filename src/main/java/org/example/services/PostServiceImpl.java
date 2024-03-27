@@ -167,4 +167,19 @@ public class PostServiceImpl implements PostService {
 
         return new PostSearchResultDTO(products, (int) result.getTotalElements());
     }
+
+    @Override
+    public boolean delete(Integer postId) {
+        var entity = postRepository.findById(postId).orElse(null);
+        if (entity == null) {
+            return false;
+        }
+        try {
+            postRepository.deleteById(postId);
+            return true;
+        }
+        catch (Exception exception) {
+            return false;
+        }
+    }
 }

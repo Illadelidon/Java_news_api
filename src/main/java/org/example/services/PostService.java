@@ -15,4 +15,6 @@ public interface PostService {
     PostItemDTO getById(Integer postId);
 
     PostSearchResultDTO searchPost(String name,int categoryId,String description,int page,int size);
+
+    boolean delete(Integer postId);
 }

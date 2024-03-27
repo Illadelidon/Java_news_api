@@ -24,12 +24,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     @Override
-    public CategorySearchResultDTO getAllCategories(Pageable pageable) {
-        Page<CategoryEntity> search = categoryRepository.findAll(pageable);
-        var searchResult = new CategorySearchResultDTO();
-        searchResult.setList(categoryMapper.categoryItemDTOList(search.getContent()));
-        searchResult.setTotalCount((int)search.getTotalElements());
-        return searchResult;
+    public Page<CategoryItemDTO> getAllCategories(Pageable pageable) {
+        Page<CategoryEntity> categories = categoryRepository.findAll(pageable);
+        return categories.map(categoryMapper::categoryItemDTO);
     }
 
     @Override
