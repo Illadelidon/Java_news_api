@@ -17,6 +17,9 @@ public class CategoryEntity {
     @Column(length = 200, nullable = false)
     private String name;
 
+    @Column(length = 4000)
+    private String description;
+
     @Column(name = "date_created")
     private LocalDateTime creationTime;
 
